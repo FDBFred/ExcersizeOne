@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"strconv"
 	"time"
@@ -31,6 +32,8 @@ func main() {
 	reader.Comma = ','
 
 	records, err := reader.ReadAll()
+
+	records = shuffle(records)
 
 	fmt.Println("Welcome to the Quiz Game")
 	fmt.Println("Please answer the following questions")
@@ -72,4 +75,12 @@ func main() {
 
 	time.Sleep(10 * time.Second)
 
+}
+
+func shuffle(array [][]string) [][]string {
+	for i := len(array) - 1; i > 0; i-- {
+		j := rand.Intn(i + 1)
+		array[i], array[j] = array[j], array[i]
+	}
+	return array
 }
